@@ -50,6 +50,7 @@ def hello(): #xmlhttp.onreadystatechange
             lis = re.findall(r'\W^\.,', a)  # тут проверка по знакам
             if len(lis) > 1:
                 print('Вы ввели "', a, '" . Это не число. 1')
+                response.headers['Content-Type'] = 'application/json'
                 return json.dumps({'result':0})
             else:
                 a = re.sub(r'(\,|\/)', '.', a)
