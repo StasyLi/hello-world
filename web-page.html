@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<TITLE>ВАЖНЕЙШЕЕ ТЕСТИРОВАНИЕ</title>
+<meta http-equiv="Content-Type"content="text/html; charset=utf-8">
+<body BGCOLOR=#FFEBCD TEXT=#0>
+<h3><P align="center">Эта чудо-форма скажет, что Вы ввели: число или не число.</p></h3>
+<h2>Форма</h2>
+<p><input id="vvod"></p>
+<input type ="submit" onclick="vivodim()"><!--какой тип input или button нужно прописать, чтобы кнопка срабатывала при enter? -->
+<p id ="vveli"></p>
+<p id="vivod"></p>
+<p id="proverka"></p>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+<script type="text/javascript">
+function vivodim(){
+document.getElementById("vveli").innerHTML= 'Вы ввели "'+ document.getElementById("vvod").value + '" .';
+$.ajax({
+type: "POST",
+contentType: "application/json",
+url: 'https://www.pythonanywhere.com/user/StasyLi/files/home/StasyLi/mysite/regular_exp.py 
+', 
+headers: {
+'Accept': "application/json",
+'Content-Type': "application/json"
+},
+dataType: "json",
+data: JSON.stringify({"vot": document.getElementById("vvod").value }),
+success: 
+function(inf){
+if (inf.result == 1) {
+document.getElementById("vivod").innerHTML = "Это число.";
+} else if (inf.result == 0) {
+document.getElementById("vivod").innerHTML = "Это не число.";
+} else if (inf.result == "Лимит символов превышен")  {
+document.getElementById("vivod").innerHTML = "Лимит символов превышен";
+}
+}<!--function(inf) end-->
+})<!--кончился ajax-->
+}<!--кончился vivodim-->
+</script>
+</body>
+</head>
+</html>
+
+<!-- нужно ли это куда-то пихнуть?
+header('Content-type: application/json; charset=utf-8') -->
+
+
+
+<!-- вот как по-другому придумала отправить запрос
+ $.ajax({
+method: "POST",
+url: "http://localhost:8080/hello", 
+contentType: "application/json",
+data: {"vot": document.getElementById("vvod").value },
+dataType: "application/json",
+success:
+function (data){
+document.getElementById("vivod").innerHTML = data;
+}
+}) -->
+
+
+<!--эту часть смотреть не обязательно, не рабочая
+var json = JSON.stringify.getElementById(vvod)<!--Теперь это строка JSON?Она нужна?->
+var a = input type="text" 
+document.getElementById(собственно айди).value
+
+
+
+<button type="button" onclick="getJSON()">Ввод</button>
+<script>
+  function getJSON(){
+    var ajax_req = new XMLHttpRequest();
+    ajax_req.open('POST', урл адрееес, true;
+    ajax_req.send
+  }
+
+var a = input type="text"
+var json = JSON.stringify.getElementById(355)<!--и вот эту строку в action
+вывод с помощью .innerHTML-->
