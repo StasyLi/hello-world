@@ -22,7 +22,7 @@ def hello(): #xmlhttp.onreadystatechange
     sep = [-1, -1]
     m = [-1]
     sepa = []
-    sokr = ['тыс', 'млн', 'млрд', 'трлн']  # это не весь список чисел, его заполню ещё числами побольше
+    sokr = ['тыс', 'млн', 'млрд', 'трлн'] 
     more1 = ['десяток', 'дюжина', 'тысяча', 'миллион', 'миллиард', 'триллион']
     more2 = ['десяток', 'десятка', 'десятков', 'тысяча', 'тысячи', 'тысяч', 'миллион', 'миллионов', 'миллиона', 'миллиард',
              'миллиарда', 'миллиардов', 'триллион', 'триллиона', 'триллионов']
@@ -47,7 +47,7 @@ def hello(): #xmlhttp.onreadystatechange
             response.headers['Content-Type'] = 'application/json'
             return json.dumps({'result': 1})
         else:
-            lis = re.findall(r'\W^\.,', a)  # тут проверка по знакам
+            lis = re.findall(r'\W^\.,', a)  
             if len(lis) > 1:
                 print('Вы ввели "', a, '" . Это не число. 1')
                 return json.dumps({'result':0})
@@ -63,9 +63,9 @@ def hello(): #xmlhttp.onreadystatechange
                     if len(a) - len(lis) == 0:
                         print('Вы ввели "', a, '" . Это число.')
                         response.headers['Content-Type'] = 'application/json'
-                        return json.dumps({'result':1})                     # и тут надо закончить выполнение программы (а оно и закончится)
-                    else:  # тут пошла проверка смешанных чисел
-                        b = a.split()  # может, попоробовать причислить к действ.члены массива?
+                        return json.dumps({'result':1})                    
+                    else:  
+                        b = a.split()  
                         for x in b:
                             try:
                                 float(x)
@@ -73,8 +73,7 @@ def hello(): #xmlhttp.onreadystatechange
                             except ValueError:
                                 letters.append(x)
                         if len(digits) != 0:
-                            for x in letters:  # тут пошла проверка буквенных чисел сравниванием с членами созданных массивов
-                              # если у нас смешанное число, то буквенные части могут быть только из списков sokr & more2
+                            for x in letters:  
                                 for z in sokr:
                                     for y in more2:
                                         if x != z and x != y:
@@ -84,8 +83,8 @@ def hello(): #xmlhttp.onreadystatechange
                                         else:
                                             print('Вы ввели "', a, '" . Это число.')
                                             response.headers['Content-Type'] = 'application/json'
-                                            return json.dumps({'result':1})  # этап проверки смешанных чисел закончился, дальше идёт этап проверки только буквенных чисел
-                        else:  # тут у нас только буквенные числа проверяются, если слово одно - проверяем по всем спискам.
+                                            return json.dumps({'result':1}) 
+                        else:  
                                 if len(b) == 1:
                                     print('Это b[0] - ', b[0])
                                     for h in range(1):
@@ -94,9 +93,9 @@ def hello(): #xmlhttp.onreadystatechange
                                                 if i == b[0]:
                                                     print('Вы ввели "', a, '" . Это число.')
                                                     response.headers['Content-Type'] = 'application/json'
-                                                    return json.dumps({'result':1})# как тут сделать так, чтобы при совпадении программа остановилась?
+                                                    return json.dumps({'result':1})
                                                     break
-                                                elif obsch.index(x) == 4 and x.index(i) == 12:#это типа если мы проверили самое последнее число из списков и ничего не совпало, то всё, это точно не число
+                                                elif obsch.index(x) == 4 and x.index(i) == 12:
                                                     print('Вы ввели "', a, '" . Это не число. 3')
                                                     response.headers['Content-Type'] = 'application/json'
                                                     return json.dumps({'result':0})
@@ -110,37 +109,37 @@ def hello(): #xmlhttp.onreadystatechange
                                         for x in more2:
                                             if i == x:
                                                 count += 1
-                                                sep[count-1] = b.index(i)  # покажет номер первого входа i в b
-                                                sepa.append(x)#тут добавляем само слово-разделитель, чтобы потом посмотреть, несовпадают ли разделители
+                                                sep[count-1] = b.index(i)  
+                                                sepa.append(x)
                                     for i in range (len(sepa)):
                                         if len(sepa) > 1 and sepa[i] == sepa[i+1]:
                                             print('Вы ввели "', a, '" . Это не число. 5')
                                             response.headers['Content-Type'] = 'application/json'
                                             return json.dumps({'result':0})
                                             break
-                                        break## тут всё равно до конца выход из программы не совершается
+                                        break
                                     nmax, nmin = count + 1, count - 1                                
                                     if nmin == -1:
                                          nmin = 1
                                     if sep[1] != -1:
-                                        sep.append(2 * len(b))  # тут при отстутствии разделителей ошибка второй член списка = -1, нужно иф сюда
+                                        sep.append(2 * len(b))  
                                     else:
                                         sep[1] = 2 * len(b)
-                                    if nmin <= (len(b) - count) <= nmax * 3:  # это мы проверили, правильное ли количество циклов "сотня-десяток-единица" присутствует в написанной строке
+                                    if nmin <= (len(b) - count) <= nmax * 3:  
 
-                                            # тут нужно найти промежутки (c помощью индексов разделителей в списке) перед первым разделителем, между ними и после последнего разделитедя и внутри них проводить поиск из общего списка
-                                        for z in range(1, len(sep)):  # !!! было (len(sep) -1
-                                            for i in range(sep[z-1] + 1, sep[z] - len(b)):  # это мы ввели переменные для определения участков поиска между разделителями в строке
-                                                for g in obsch:  # теперь вводим списки, в которых ищем. Тут будет накладка - каждый раз будет проходить обыск сначала с большего списка, но это хорошо, т.к. поможет найти нечисло
+                                            
+                                        for z in range(1, len(sep)):  
+                                            for i in range(sep[z-1] + 1, sep[z] - len(b)): 
+                                                for g in obsch: 
                                                     for c in g:
                                                          if b[i] == c:
                                                                m.append(obsch.index(g))
                                                                try:
-                                                                   if m[z] < m[z-1] or (m[z] == 2 and m[z - 1] == 1) or (m[z] == 3 and m[z - 1] == 2):  # то есть если индекс одного больше другого, то класс одного числа меньше предыдущего, что правильно для записанного числа, а два or - это и есть проверка проблем с недодесятками
+                                                                   if m[z] < m[z-1] or (m[z] == 2 and m[z - 1] == 1) or (m[z] == 3 and m[z - 1] == 2):  
                                                                        print('Вы ввели "', a, '" . Это не число. 6')
                                                                        response.headers['Content-Type'] = 'application/json'
                                                                        return json.dumps({'result':0})
-                                                                   else:  # если всё хорошо, то всё опять начинается, но уже для другого слова из строки b
+                                                                   else:  
                                                                        break
                                                                    break 
                                                                except IndexError:
@@ -151,12 +150,12 @@ def hello(): #xmlhttp.onreadystatechange
                                                                break
                                                          break
                                             m = m.clear()
-                                            m = [-1]  # тоже нужно, чтобы с 1 разом не было непорядка
+                                            m = [-1]  
                                         print('Вы ввели "', a, '" . Это число.')
                                         response.headers['Content-Type'] = 'application/json'
                                         return json.dumps({'result':1})
-                                        # нужно исключить случай, когда в (недодес и ед) или (дес и недодес) есть числа. То есть где-то только в одном месте они моугт быть, иначе - не число
-                                    else:  # если у нас не совпадают количество циклов возможное и реальное
+                                        
+                                    else: 
                                         print('Вы ввели "', a, '" . Это не число. 8')
                                         response.headers['Content-Type'] = 'application/json'
                                         return json.dumps({'result':0})
