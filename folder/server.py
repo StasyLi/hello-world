@@ -1,3 +1,4 @@
+#coding=utf-8
 from bottle import route, run, request, response
 import json
 @route ('/hello', method = "OPTIONS")
