@@ -4,7 +4,11 @@
 <TITLE>ВАЖНЕЙШЕЕ ТЕСТИРОВАНИЕ</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <body BGCOLOR=#FFEBCD TEXT=#0>
-<h3><P align="center">Эта чудо-форма скажет, что Вы ввели: число или не число.</p></h3>
+<h2><P align="center">Всем привет!</p></h2>
+<h2><P align="center"></p>Вы находитесь на странице для тестового задания QA.</h2>
+<h1><P align="left">Ниже Вы можете увидеть формочку, которая определяет, является ли то, что Вы ввели, числом с точки зрения человека-математика.</p></h1>
+<h1><P align="left">Протестируйте её.</p></h1>
+<h1><P align="left">Исходный код доступен по <a href="https://github.com/StasyLi/hello-world/blob/master/folder/serverok.py">ссылке</a>.</p></h1>
 <h2>Форма</h2>
 <p><input id="vvod" placeholder="Введите что-нибудь" formenctype="utf-8"></p>
 <input type ="submit" onclick="vivodim()"><!--какой тип input или button нужно прописать, чтобы кнопка срабатывала при enter? -->
@@ -42,20 +46,22 @@ document.getElementById("vivod").innerHTML = "Вы ничего не ввели.
 }<!--кончился vivodim-->
 </script>
 <script>
-function clpbrd() {
-var cop = document.getElementById("hidden");
+function copytext() {
+var cop = document.getElementById("card");
 cop.select();
 document.execCommand("copy");
-<!--почему не работает alert? и эта функция тоже-->
 }
 </script>
-<p id = "hidden" hidden>4276 3801 4680 8550</p><BR>
 <BR>
 <BR>
 <BR>
 <BR>
-<p>Если вам понравилась моя работа, буду рада об этом узнать!</p>
-<p>Сбербанк:<button type="button" onclick = "clpbrd()">4276 3801 4680 8550</button><a href="https://www.tinkoff.ru/cardtocard/"> Перевести</a></p>  
+<p>Эта формочка была сделана руками и головой <a href="https://github.com/StasiLi">StasyLi</a>. Буду рада получить Ваши советы по улучшению и узнать, что Вы думаете об этой работе!</p>
+<p>Обязательно отвечу, если Вы напишете вот <a href="https://t.me/HereIsStasyLi">сюда</a>.</p>
+<p>Пользоваться материалами проекта можно абсолютно бесплатно и на своё усмотрение, но последствия этого будут на Вашей совести))</p>
+<p>Если мой проект Вам помог, Вы можете его поддержать, перечислив 50 рублей или любую другую удобную для Вас сумму по номеру карточки ниже.</p>
+<input type="text"id ="card" value="4276380146808550">
+<button type="button" onclick = "copytext()">Скопировать</button><a href="https://www.tinkoff.ru/cardtocard/">Перевести</a> 
 </body>
 </head>
 </html>
